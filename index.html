@@ -179,10 +179,41 @@
             document.getElementById('orderModal').classList.add('hidden');
         }
 
-        function handleSubmit(e) {
+        async function handleSubmit(e) {
             e.preventDefault();
-            document.getElementById('orderForm').classList.add('hidden');
-            document.getElementById('successState').classList.remove('hidden');
+            
+            const formData = {
+                itemName: document.getElementById('itemNameInput').value,
+                name: document.getElementById('custName').value,
+                phone: document.getElementById('custPhone').value,
+                email: document.getElementById('custEmail').value,
+                notes: document.getElementById('custNotes').value
+            };
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Submitting...";
+            submitBtn.disabled = true;
+
+            try {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbw46Je_dg0RvQEVkvECx0LMTwEft4H3iTwtwTp5o6ZupM-NeFFeX5UlFpTOSDBumumuKg/exec';
+
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                document.getElementById('orderForm').classList.add('hidden');
+                document.getElementById('successState').classList.remove('hidden');
+                document.getElementById('orderForm').reset();
+            } catch (error) {
+                alert('There was an error submitting your request. Please try again.');
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
         }
 
         renderProducts();
