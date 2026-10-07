@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM Matrix - 3D Printing by Luca & Marcel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-[#E6F0FA] text-[#1E293B] min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header / Branding -->
+    <header class="w-full bg-[#E6F0FA]/90 backdrop-blur-md sticky top-0 z-40 border-b border-blue-200/60 px-4 py-4 shadow-sm">
+        <div class="max-w-2xl mx-auto flex flex-col items-center text-center">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-600 via-emerald-500 to-amber-500 p-0.5 shadow-md flex items-center justify-center mb-2">
+                <div class="w-full h-full bg-[#E6F0FA] rounded-[14px] flex items-center justify-center">
+                    <span class="text-2xl font-bold bg-gradient-to-r from-teal-700 to-emerald-600 bg-clip-text text-transparent">LM</span>
+                </div>
+            </div>
+            <h1 class="text-2xl font-extrabold tracking-tight text-[#111827]">LM MATRIX</h1>
+            <p class="text-xs font-semibold tracking-wider text-teal-800 uppercase mt-0.5">3D Printing by Luca & Marcel</p>
+            <p class="text-xs text-slate-600 mt-1">Browse models, view pictures, and request custom prints!</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-2xl w-full mx-auto px-4 py-6 flex-grow">
+
+        <!-- Category Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar">
+            <button onclick="filterCategory('all')" id="btn-all" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-teal-700 text-white shadow-sm transition-all whitespace-nowrap">All Items</button>
+            <button onclick="filterCategory('flexis')" id="btn-flexis" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap">Flexis & Animals</button>
+            <button onclick="filterCategory('fidgets')" id="btn-fidgets" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap">Fidgets & Clickers</button>
+            <button onclick="filterCategory('gadgets')" id="btn-gadgets" class="cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap">Gadgets & Gear</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="product-grid" class="grid grid-cols-2 gap-3.5 sm:gap-4">
+            <!-- Items injected via JS -->
+        </div>
+
+        <!-- Custom Request Banner -->
+        <div class="mt-8 bg-gradient-to-r from-teal-700 to-emerald-700 rounded-2xl p-5 text-white shadow-md text-center">
+            <h3 class="font-bold text-base mb-1">Got a custom idea?</h3>
+            <p class="text-xs text-teal-100 mb-3">Want a specific color combination or personalized design? Let us know!</p>
+            <button onclick="openModal('Custom Print Request')" class="bg-white text-teal-800 font-bold text-xs px-5 py-2.5 rounded-xl shadow hover:bg-teal-50 transition-all">
+                Request Custom Print
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 border-t border-blue-100 py-4 px-4 text-center text-xs text-slate-500">
+        <p>© 2026 LM Matrix • Made with care by Luca & Marcel</p>
+    </footer>
+
+    <!-- Order / Request Modal -->
+    <div id="orderModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                <div>
+                    <h3 id="modalTitle" class="font-bold text-lg text-slate-800">Order / Request</h3>
+                    <p class="text-xs text-slate-500">Fill in your details for event pickup or delivery</p>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 font-bold">✕</button>
+            </div>
+
+            <form id="orderForm" onsubmit="handleSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Selected Item / Request</label>
+                    <input type="text" id="itemNameInput" readonly class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-700 font-medium focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Your Name *</label>
+                    <input type="text" id="custName" required placeholder="e.g. Sarah Jenkins" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number *</label>
+                        <input type="tel" id="custPhone" required placeholder="0400 000 000" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address *</label>
+                        <input type="email" id="custEmail" required placeholder="name@example.com" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Color Preference / Notes (Optional)</label>
+                    <textarea id="custNotes" rows="2" placeholder="e.g. Rainbow silk, blue, or specific custom instructions..." class="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl shadow transition-all text-sm">
+                    Submit Request
+                </button>
+            </form>
+
+            <div id="successState" class="hidden text-center py-8">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl font-bold">✓</div>
+                <h4 class="text-lg font-bold text-slate-800 mb-1">Request Received!</h4>
+                <p class="text-xs text-slate-600 mb-6">Thanks! Luca & Marcel will get your 3D print ready.</p>
+                <button onclick="closeModal()" class="bg-slate-100 text-slate-700 font-bold text-xs px-6 py-2.5 rounded-xl hover:bg-slate-200">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Cuttle-fish", category: "flexis", price: "20 SAR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zMKly06xrSI1_a6j8WdlIdNzmYwrt2F_UzYYVeMp5tLTaQ" },
+            { id: 2, name: "Clicker ball 12x", category: "fidgets", price: "45-50 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSuQEYONEpUwtBcVIorDC9stV4Tlkgyh7JwSEWFXTwTXR2O7Q" },
+            { id: 3, name: "Crab", category: "flexis", price: "15 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcROYR-48HzGIBNGEACBmb7eMTORmq0kj2tTFNFd2oMziAkRTA" },
+            { id: 4, name: "Articulated skeleton frog", category: "flexis", price: "25 SAR", img: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvu3teleu8hbBItZDGwFFT4_t4TQTZ0tNECqiq1w1yafMAag" },
+            { id: 5, name: "Mushroom Clicker", category: "fidgets", price: "25 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US15c9a955cef6a2/design/cbfb580f09ca7593.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 6, name: "Fidget Clicker", category: "fidgets", price: "1 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9v1iqUgRiH5gk8rP02B2TtDB6FObzlcRJEoxafRJ0yvSADA" },
+            { id: 7, name: "Hexagon fidget", category: "fidgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US8384dfb1e37a48/design/80463ed2c710a518.jpeg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 8, name: "Ultra clicker", category: "fidgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US37f7fbfba4c261/design/2024-10-18_4a9187224c40a.png?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 9, name: "Sea jellyfish", category: "flexis", price: "15-20 SAR", img: "https://makerworld.bblmw.com/makerworld/model/USb71c6fe986a510/design/2025-11-30_cc496c4caf743.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 10, name: "Dumplings", category: "gadgets", price: "15 SAR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-cHupYhKxSE-fdlPOFkveHZLh42ZMXgcKcmFdzGSUIe6JA" },
+            { id: 11, name: "Animal bookmarks (2)", category: "gadgets", price: "15 SAR", img: "https://makerworld.bblmw.com/makerworld/model/USfb73a9fe5ec3e9/design/2024-09-08_dd21994bf072c.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 12, name: "Square passthrough", category: "gadgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/UScd24195c2db871/design/e2bb17eeae6241fa.png?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 13, name: "Squish Rectangle", category: "fidgets", price: "20 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US83c65d769d51cf/design/2025-11-27_85282f8acc0488.jpg?x-oss-process=image/resize,w_1000/format,webp" }
+        ];
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow';
+                card.innerHTML = `
+                    <div>
+                        <div class="h-36 w-full bg-slate-100 overflow-hidden relative">
+                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="p-3">
+                            <h4 class="font-bold text-xs sm:text-sm text-slate-800 line-clamp-1">${p.name}</h4>
+                            <div class="flex items-center justify-between mt-1">
+                                <span class="text-[10px] text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">${p.category}</span>
+                                <span class="text-xs font-bold text-slate-700">${p.price}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3 pt-0">
+                        <button onclick='openModal(${JSON.stringify(p.name)})' class="w-full bg-slate-100 hover:bg-teal-700 hover:text-white text-slate-700 font-bold text-xs py-2 rounded-xl transition-all">
+                            Select / Order
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = 'cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all whitespace-nowrap';
+            });
+            document.getElementById(`btn-${cat}`).className = 'cat-btn px-4 py-2 rounded-full text-xs font-semibold bg-teal-700 text-white shadow-sm transition-all whitespace-nowrap';
+            renderProducts(cat);
+        }
+
+        function openModal(itemName) {
+            document.getElementById('itemNameInput').value = itemName;
+            document.getElementById('orderModal').classList.remove('hidden');
+            document.getElementById('orderForm').classList.remove('hidden');
+            document.getElementById('successState').classList.add('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').classList.add('hidden');
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('orderForm').classList.add('hidden');
+            document.getElementById('successState').classList.remove('hidden');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
