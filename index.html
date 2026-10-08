@@ -15,10 +15,10 @@
 <body class="bg-[#E6F0FA] text-[#1E293B] min-h-screen flex flex-col justify-between antialiased">
 
     <!-- Header / Branding -->
-    <header class="w-full bg-[#E6F0FA]/90 backdrop-blur-md sticky top-0 z-40 border-b border-blue-200/60 px-4 py-4 shadow-sm">
+    <header class="w-full bg-[#E6F0FA]/90 backdrop-blur-md sticky top-0 z-40 border-b border-blue-200/60 px-4 py-5 shadow-sm">
         <div class="max-w-2xl mx-auto flex flex-col items-center text-center">
-            <!-- Logo Image (Enlarged) -->
-            <img src="logo.jpg" alt="LM Matrix Logo" class="w-28 h-28 sm:w-32 sm:h-32 object-contain rounded-2xl shadow-sm mb-2" onerror="this.style.display='none'">
+            <!-- Larger Logo Image -->
+            <img src="logo.jpg" alt="LM Matrix Logo" class="w-32 h-32 sm:w-36 sm:h-36 object-contain rounded-2xl shadow-sm mb-2" onerror="this.style.display='none'">
             <h1 class="text-2xl font-extrabold tracking-tight text-[#111827]">LM MATRIX</h1>
             <p class="text-xs text-slate-600 mt-1">Browse models, view pictures, and request custom prints!</p>
         </div>
@@ -109,19 +109,19 @@
 
     <script>
         const products = [
-            { id: 1, name: "Cuttle-fish", category: "flexis", price: "20 SAR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zMKly06xrSI1_a6j8WdlIdNzmYwrt2F_UzYYVeMp5tLTaQ" },
-            { id: 2, name: "Clicker ball 12x", category: "fidgets", price: "45-50 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSuQEYONEpUwtBcVIorDC9stV4Tlkgyh7JwSEWFXTwTXR2O7Q" },
-            { id: 3, name: "Crab", category: "flexis", price: "15 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcROYR-48HzGIBNGEACBmb7eMTORmq0kj2tTFNFd2oMziAkRTA" },
-            { id: 4, name: "Articulated skeleton frog", category: "flexis", price: "25 SAR", img: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvu3teleu8hbBItZDGwFFT4_t4TQTZ0tNECqiq1w1yafMAag" },
-            { id: 5, name: "Mushroom Clicker", category: "fidgets", price: "25 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US15c9a955cef6a2/design/cbfb580f09ca7593.jpg?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 6, name: "Fidget Clicker", category: "fidgets", price: "1 SAR", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9v1iqUgRiH5gk8rP02B2TtDB6FObzlcRJEoxafRJ0yvSADA" },
-            { id: 7, name: "Hexagon fidget", category: "fidgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US8384dfb1e37a48/design/80463ed2c710a518.jpeg?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 8, name: "Ultra clicker", category: "fidgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US37f7fbfba4c261/design/2024-10-18_4a9187224c40a.png?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 9, name: "Sea jellyfish", category: "flexis", price: "15-20 SAR", img: "https://makerworld.bblmw.com/makerworld/model/USb71c6fe986a510/design/2025-11-30_cc496c4caf743.jpg?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 10, name: "Dumplings", category: "gadgets", price: "15 SAR", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-cHupYhKxSE-fdlPOFkveHZLh42ZMXgcKcmFdzGSUIe6JA" },
-            { id: 11, name: "Animal bookmarks (2)", category: "gadgets", price: "15 SAR", img: "https://makerworld.bblmw.com/makerworld/model/USfb73a9fe5ec3e9/design/2024-09-08_dd21994bf072c.jpg?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 12, name: "Square passthrough", category: "gadgets", price: "25-30 SAR", img: "https://makerworld.bblmw.com/makerworld/model/UScd24195c2db871/design/e2bb17eeae6241fa.png?x-oss-process=image/resize,w_1000/format,webp" },
-            { id: 13, name: "Squish Rectangle", category: "fidgets", price: "20 SAR", img: "https://makerworld.bblmw.com/makerworld/model/US83c65d769d51cf/design/2025-11-27_85282f8acc0488.jpg?x-oss-process=image/resize,w_1000/format,webp" }
+            { id: 1, name: "Cuttle-fish", category: "flexis", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-zMKly06xrSI1_a6j8WdlIdNzmYwrt2F_UzYYVeMp5tLTaQ" },
+            { id: 2, name: "Clicker ball 12x", category: "fidgets", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSuQEYONEpUwtBcVIorDC9stV4Tlkgyh7JwSEWFXTwTXR2O7Q" },
+            { id: 3, name: "Crab", category: "flexis", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcROYR-48HzGIBNGEACBmb7eMTORmq0kj2tTFNFd2oMziAkRTA" },
+            { id: 4, name: "Articulated skeleton frog", category: "flexis", img: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvu3teleu8hbBItZDGwFFT4_t4TQTZ0tNECqiq1w1yafMAag" },
+            { id: 5, name: "Mushroom Clicker", category: "fidgets", img: "https://makerworld.bblmw.com/makerworld/model/US15c9a955cef6a2/design/cbfb580f09ca7593.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 6, name: "Fidget Clicker", category: "fidgets", img: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9v1iqUgRiH5gk8rP02B2TtDB6FObzlcRJEoxafRJ0yvSADA" },
+            { id: 7, name: "Hexagon fidget", category: "fidgets", img: "https://makerworld.bblmw.com/makerworld/model/US8384dfb1e37a48/design/80463ed2c710a518.jpeg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 8, name: "Ultra clicker", category: "fidgets", img: "https://makerworld.bblmw.com/makerworld/model/US37f7fbfba4c261/design/2024-10-18_4a9187224c40a.png?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 9, name: "Sea jellyfish", category: "flexis", img: "https://makerworld.bblmw.com/makerworld/model/USb71c6fe986a510/design/2025-11-30_cc496c4caf743.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 10, name: "Dumplings", category: "gadgets", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-cHupYhKxSE-fdlPOFkveHZLh42ZMXgcKcmFdzGSUIe6JA" },
+            { id: 11, name: "Animal bookmarks (2)", category: "gadgets", img: "https://makerworld.bblmw.com/makerworld/model/USfb73a9fe5ec3e9/design/2024-09-08_dd21994bf072c.jpg?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 12, name: "Square passthrough", category: "gadgets", img: "https://makerworld.bblmw.com/makerworld/model/UScd24195c2db871/design/e2bb17eeae6241fa.png?x-oss-process=image/resize,w_1000/format,webp" },
+            { id: 13, name: "Squish Rectangle", category: "fidgets", img: "https://makerworld.bblmw.com/makerworld/model/US83c65d769d51cf/design/2025-11-27_85282f8acc0488.jpg?x-oss-process=image/resize,w_1000/format,webp" }
         ];
 
         function renderProducts(filter = 'all') {
@@ -140,9 +140,8 @@
                         </div>
                         <div class="p-3">
                             <h4 class="font-bold text-xs sm:text-sm text-slate-800 line-clamp-1">${p.name}</h4>
-                            <div class="flex items-center justify-between mt-1">
+                            <div class="mt-1">
                                 <span class="text-[10px] text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">${p.category}</span>
-                                <span class="text-xs font-bold text-slate-700">${p.price}</span>
                             </div>
                         </div>
                     </div>
